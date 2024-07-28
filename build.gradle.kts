@@ -18,8 +18,11 @@ dependencies {
     testImplementation("net.minestom:minestom-snapshots:6fc64e3a5d")
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_21
-java.targetCompatibility = JavaVersion.VERSION_21
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
