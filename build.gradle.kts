@@ -16,3 +16,7 @@ dependencies {
 
     compileOnly("com.github.Minestom:minestom:12794d4263")
 }
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
