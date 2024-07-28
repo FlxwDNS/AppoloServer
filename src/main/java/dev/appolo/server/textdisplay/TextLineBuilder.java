@@ -39,6 +39,9 @@ public final class TextLineBuilder {
         * @return the attribute value
      **/
     public <T> T get(AppoloAttribute<T> attribute) {
+        if(!attributes.containsKey(attribute)) {
+            return attribute.defaultValue();
+        }
         return (T) attributes.get(attribute);
     }
 

@@ -23,3 +23,24 @@ tasks.withType<JavaCompile> {
     sourceCompatibility = JavaVersion.VERSION_21.toString()
     targetCompatibility = JavaVersion.VERSION_21.toString()
 }
+
+publishing {
+    repositories {
+        maven {
+            name = "localhost"
+            url = uri("http://127.0.0.1:8080/releases")
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "dev.appolo"
+            artifactId = "appolo-server"
+            version = "1.0.1"
+            from(components["java"])
+        }
+    }
+}
