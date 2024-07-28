@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation("log4j:log4j:1.2.17")
 
-    compileOnly("com.github.Minestom:minestom:-edb73f0a5a-1")
+    compileOnly("com.github.Minestom:minestom:461d0aa746")
 }
 
 tasks.withType<JavaCompile> {
