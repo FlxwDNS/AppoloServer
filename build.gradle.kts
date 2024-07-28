@@ -13,5 +13,5 @@ repositories {
 dependencies {
     implementation("log4j:log4j:1.2.17")
 
-    implementation("net.minestom:minestom:12794d4263")
+    runtimeOnly("net.minestom:minestom:12794d4263")
 }
