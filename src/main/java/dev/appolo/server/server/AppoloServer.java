@@ -26,7 +26,7 @@ public final class AppoloServer {
 
         var startup = System.currentTimeMillis();
 
-        this.log.accept("Loading Minestom server...");
+        this.log.accept("Loading enviroment.");
         var minecraftServer = MinecraftServer.init();
 
 
@@ -40,11 +40,13 @@ public final class AppoloServer {
             this.log.accept("Enviroment: MojangAuth[Minestom]");
             this.log.accept("- " + MojangAuth.AUTH_URL);
         }
+        this.log.accept("");
+
         minecraftServer.start("127.0.0.1", 25565);
 
         MinecraftServer.getBlockManager().registerHandler(NamespaceID.from("minecraft:hanging_sign"), HangingSignBlockHandler::new);
 
-        this.log.accept("AppoloServer is ready. Took " + (System.currentTimeMillis() - startup) + "ms (" + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startup) + "s)");
+        this.log.accept("AppoloServer started successfully. Took " + (System.currentTimeMillis() - startup) + "ms (" + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startup) + "s)");
         return minecraftServer;
     }
 }
