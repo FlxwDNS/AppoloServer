@@ -5,45 +5,46 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.velocity.VelocityProxy;
 import net.minestom.server.utils.NamespaceID;
-import org.apache.log4j.*;
+
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public final class AppoloServer {
-    private final Logger logger = LogManager.getLogger(AppoloServer.class);
+    private final Consumer<String> log;
 
-    public AppoloServer() {
-        var console = new ConsoleAppender();
-
-        //global
-        var PATTERN = "[%d{HH:mm:ss}] [%p]: %m%n";
-        console.setLayout(new PatternLayout(PATTERN));
-        console.setThreshold(Level.INFO);
-        console.activateOptions();
-        Logger.getRootLogger().addAppender(console);
-
-        this.logger.info("AppoloServer was initialized.");
+    public AppoloServer(Consumer<String> log) {
+        this.log = log;
     }
 
-    public Logger logger() {
-        return this.logger;
-    }
+    /**
+     * Run the server
+     * Set the VELOCITY_SECRET environment variable to enable VelocityProxy
+     * @return
+     */
+    public MinecraftServer run() {
+        this.log.accept("Running AppoloServer with Minestom on Java " + System.getProperty("java.version") + " with " + System.getProperty("os.name") + ".");
 
-    public MinecraftServer run(String velocitySecret) {
-        this.logger.info("Initializing server...");
+        var startup = System.currentTimeMillis();
+
+        this.log.accept("Loading Minestom server...");
         var minecraftServer = MinecraftServer.init();
 
+
+        var velocitySecret = System.getenv("VELOCITY_SECRET");
         if (velocitySecret != null) {
-            this.logger.info("Setting up VelocityProxy...");
+            this.log.accept("Enviroment: VelocityProxy[Minestom]");
+            this.log.accept("- " + VelocityProxy.PLAYER_INFO_CHANNEL);
             VelocityProxy.enable(velocitySecret);
         } else {
-            this.logger.info("Initializing MojangAuth...");
             MojangAuth.init();
+            this.log.accept("Enviroment: MojangAuth[Minestom]");
+            this.log.accept("- " + MojangAuth.AUTH_URL);
         }
         minecraftServer.start("127.0.0.1", 25565);
 
-        this.logger.info("Initializing BlockHandler...");
         MinecraftServer.getBlockManager().registerHandler(NamespaceID.from("minecraft:hanging_sign"), HangingSignBlockHandler::new);
 
-        this.logger.info("Initializing Main...");
+        this.log.accept("AppoloServer is ready. Took " + (System.currentTimeMillis() - startup) + "ms (" + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startup) + "s)");
         return minecraftServer;
     }
 }

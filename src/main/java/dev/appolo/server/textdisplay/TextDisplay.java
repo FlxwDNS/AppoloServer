@@ -19,10 +19,11 @@ public final class TextDisplay {
      * @param pos The position where the text display will be displayed.
      * @param lines The lines of the text display.
      */
-    public TextDisplay(Instance instance, Pos pos, TextLineBuilder... lines) {
+    public TextDisplay(Instance instance, Pos pos, float spacing, TextLineBuilder... lines) {
         this.entities = new ArrayList<>();
 
-        for (TextLineBuilder line : Arrays.stream(lines).toList().reversed()) {
+        for (int i = 0; i < lines.length; i++) {
+            var line = Arrays.stream(lines).toList().reversed().get(i);
             var entity = new Entity(EntityType.TEXT_DISPLAY);
             var meta = (TextDisplayMeta) entity.getEntityMeta();
 
@@ -33,7 +34,8 @@ public final class TextDisplay {
             meta.setText(line.get(TextDisplayData.CONTENT));
             meta.setBillboardRenderConstraints(line.get(TextDisplayData.BILLBOARD));
 
-            entity.setInstance(instance, pos).thenAccept(unused -> entity.teleport(pos));
+            var finalPos = pos.add(0, (double) i * spacing, 0);
+            entity.setInstance(instance, finalPos).thenAccept(unused -> entity.teleport(finalPos));
 
             this.entities.add(entity);
         }

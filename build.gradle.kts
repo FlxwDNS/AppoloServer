@@ -12,8 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation("log4j:log4j:1.2.17")
-
     compileOnly("net.minestom:minestom-snapshots:6fc64e3a5d")
     testImplementation("net.minestom:minestom-snapshots:6fc64e3a5d")
 }
@@ -39,7 +37,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "dev.appolo"
             artifactId = "appolo-server"
-            version = "1.0.1"
+            version = "1.0.6"
             from(components["java"])
         }
     }
