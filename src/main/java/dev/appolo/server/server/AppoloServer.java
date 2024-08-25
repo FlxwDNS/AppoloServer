@@ -42,7 +42,7 @@ public final class AppoloServer {
         }
         this.log.accept("");
 
-        minecraftServer.start("127.0.0.1", 25565);
+        minecraftServer.start("0.0.0.0", 25565);
 
         MinecraftServer.getBlockManager().registerHandler(NamespaceID.from("minecraft:hanging_sign"), HangingSignBlockHandler::new);
 
