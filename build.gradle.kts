@@ -1,6 +1,8 @@
 plugins {
     id("java")
     id("maven-publish")
+
+    id("com.gradleup.shadow") version "8.3.0"
 }
 
 group = "dev.appolo"
@@ -23,6 +25,19 @@ tasks.withType<JavaCompile> {
 }
 
 publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "dev.appolo.server"
+            artifactId = "appoloserver"
+            version = "1.0-SNAPSHOT"
+
+            from(components["java"])
+        }
+    }
+}
+
+/*
+publishing {
     repositories {
         maven {
             name = "localhost"
@@ -42,3 +57,4 @@ publishing {
         }
     }
 }
+ */

@@ -30,7 +30,7 @@ public final class AppoloServer {
         var minecraftServer = MinecraftServer.init();
 
 
-        var velocitySecret = System.getenv("VELOCITY_SECRET");
+        var velocitySecret = System.getProperty("VELOCITY_SECRET");
         if (velocitySecret != null) {
             this.log.accept("Enviroment: VelocityProxy[Minestom]");
             this.log.accept("- " + VelocityProxy.PLAYER_INFO_CHANNEL);
