@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.minestom:minestom-snapshots:6fc64e3a5d")
-    testImplementation("net.minestom:minestom-snapshots:6fc64e3a5d")
+    compileOnly("net.minestom:minestom-snapshots:d760a60a5c")
+    testImplementation("net.minestom:minestom-snapshots:d760a60a5c")
 }
 
 tasks.withType<JavaCompile> {
@@ -24,19 +24,6 @@ tasks.withType<JavaCompile> {
     targetCompatibility = JavaVersion.VERSION_21.toString()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "dev.appolo.server"
-            artifactId = "appoloserver"
-            version = "1.0-SNAPSHOT"
-
-            from(components["java"])
-        }
-    }
-}
-
-/*
 publishing {
     repositories {
         maven {
@@ -52,9 +39,8 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "dev.appolo"
             artifactId = "appolo-server"
-            version = "1.0.7"
+            version = "1.0.8"
             from(components["java"])
         }
     }
 }
- */

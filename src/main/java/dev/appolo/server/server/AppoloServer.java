@@ -38,7 +38,6 @@ public final class AppoloServer {
         } else {
             MojangAuth.init();
             this.log.accept("Enviroment: MojangAuth[Minestom]");
-            this.log.accept("- " + MojangAuth.AUTH_URL);
         }
         this.log.accept("");
 
